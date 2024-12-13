@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeVoice Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .user-profile img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .main-banner {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .main-banner img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+
+        .banner-text h2 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .banner-text p {
+            margin: 5px 0;
+        }
+
+        .banner-text .btn {
+            background-color: #7c3aed;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .event-card img {
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .event-details {
+            margin-left: 10px;
+            width: 800px;
+        }
+
+        .event-details h5 {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .event-details p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .community-section {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .community-section .btn {
+            background-color: #fff;
+            color: #000;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .alert-section {
+            text-align: center;
+            margin-top: 20px;
+            height: 200px;
+        }
+
+        .alert-section .btn {
+            background-color: #e11d48;
+            border-radius: 20px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #181818;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #333;
+        }
+
+        .footer-nav .nav-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .footer-nav .nav-item p {
+            font-size: 12px;
+            margin: 5px 0 0;
+            color: #888;
+        }
+
+        .footer-nav .nav-icon {
+            font-size: 20px;
+            color: #888;
+        }
+
+        .footer-nav .active .nav-icon, .footer-nav .active p {
+            color: #7c3aed;
+        }
+
+        @media (max-width: 768px) {
+        .event-details p {
+            display: none; /* Hide title and description */
+        }
+
+        .event-image {
+            margin-bottom: 10px;
+        }
+
+        .event-button {
+            width: 100%; /* Make button full width for better usability */
+        }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>SafeVoice Home</h1>
+            <div class="user-profile">
+                <a href="profile.html"><img src="https://th.bing.com/th/id/R.da2e546841da40cdcf60061743233500?rik=IeO7Sr%2fkUW54wQ&riu=http%3a%2f%2fwww.venmond.com%2fdemo%2fvendroid%2fimg%2favatar%2fbig.jpg&ehk=JihI5nQ0BOd0W%2bZVhtIWmqwac0NMyRMOV7%2bzryywg%2fg%3d&risl=&pid=ImgRaw&r=0" alt="User"></a>
+            </div>
+        </header>
+
+        <!-- Main Banner -->
+        <div class="main-banner">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9559d3c3-a527-45ac-823a-ca03f4c301fc/dchyjkn-bb8072e6-319c-4f00-9e60-174432c4053b.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk1NTlkM2MzLWE1MjctNDVhYy04MjNhLWNhMDNmNGMzMDFmY1wvZGNoeWprbi1iYjgwNzJlNi0zMTljLTRmMDAtOWU2MC0xNzQ0MzJjNDA1M2IuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.QjZgd-SLp2fyfSn7C6ceMp_zxgYGKaUOKHKdCxNSt-o" alt="Banner Image">
+            <div class="banner-text">
+                <h2>Your Voice Matters</h2>
+                <p>Join us in making a difference. Speak up today.</p>
+                
+            </div>
+        </div>
+
+        <!-- Community Highlights Section -->
+        <h3 class="section-title">Community Highlights</h3>
+
+        <!-- Safety Tips Section -->
+        <h3 class="section-title">Safety Tips</h3>
+        <p>Stay aware of your surroundings and report suspicious activities.</p>
+
+        <!-- Upcoming Events Section -->
+        <div class="container">
+            <div class="section-title">Report Categories</div>
+        
+            <!-- Event Cards -->
+            <div class="event-card">
+                <img src="https://th.bing.com/th/id/R.7c1afad9e76db3db98e237dac23d7bf8?rik=MhLwDIgg62ALig&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fService-Maintenance-PNG-Free-Image.png&ehk=Oos0QAkxZ9BS5QVs%2fBjGy98HlbGhblqngyn9nn1laIg%3d&risl=&pid=ImgRaw&r=0" alt="Student Community Event">
+                <div class="event-details">
+                    <h5>Maintenance</h5>
+                 
+                    <p>Details: A gathering for students to network and share knowledge.</p>
+                    <button class="btn btn-danger" onclick="window.location.href='status.html'">View</button>
+                    
+                </div>
+            </div>
+        
+            <div class="event-card">
+                <img src="https://seeklogo.com/images/R/road-haulage-association-rha-logo-C878F24302-seeklogo.com.png" alt="XYZ Apartment Community Event">
+                <div class="event-details">
+                    <h5>Transportation and roads</h5>
+                    <p>Details: Exclusive event for XYZ Apartment residents to socialize.</p>
+                    <button class="btn btn-danger" onclick="window.location.href='status.html'">View</button>
+                    
+                </div>
+            </div>
+        
+            <div class="event-card">
+                <img src="https://cdn4.iconfinder.com/data/icons/international-day-for-the-elimination-of-violenc-1/123/17_-_Stop_harassment-512.png" alt="Hyderabad Women Association Event">
+                <div class="event-details">
+                    <h5>Harrassment</h5>
+                    
+                    <p>Details: Empowering women through discussions and activities.</p>
+                    <button class="btn btn-danger" onclick="window.location.href='status.html'">View</button>
+                    
+                </div>
+            </div>
+        
+            <div class="event-card">
+                <img src="https://cdn2.iconfinder.com/data/icons/the-circle-icons/512/accessibility.png" alt="Hyderabad Tech Community Event">
+                <div class="event-details">
+                    <h5>Accessibility</h5>
+                    
+                    <p>Details: Tech enthusiasts sharing knowledge and innovations.</p>
+                    <button class="btn btn-danger" onclick="window.location.href='status.html'">View</button>
+                    
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Community Section -->
+        <div class="community-section">
+            <h3>Community and Badges</h3>
+            <p>Join and participate in communities to earn badges and connect with others.</p>
+            <a href="community.html">
+                <button class="btn">Join a Community</button>
+             </a>
+             
+        </div>
+
+        <!-- Alert Section -->
+        <!-- Alert Section -->
+        <div class="alert-section">
+            <p>Need help?</p>
+            <button class="btn" onclick="startVoiceAssistant()">Voice Assistant</button>
+        </div>
+
+    </div>
+    <!-- Footer Navigation -->
+    <div class="footer-nav">
+        <div class="nav-item active">
+            <a href="home.html"><i class="bi bi-house-door-fill nav-icon"></i></a>
+            <p>Home</p>
+        </div>
+        <div class="nav-item">
+            <a href="status.html"><i class="bi bi-graph-up-arrow nav-icon"></i></a>
+            <p>Report Status</p>
+        </div>
+        
+        <div class="nav-item">
+            <a href="addyours.html"><i class="bi bi-plus-circle-fill nav-icon"></i></a>
+            <p>Add Yours</p>
+        </div>
+        <div class="nav-item">
+            <a href="services.html"><i class="bi bi-people-fill nav-icon"></i></a>
+            <p>Services</p>
+        </div>
+        <div class="nav-item">
+            <a href="profile.html"><i class="bi bi-exclamation-square-fill nav-icon"></i></a>
+            <p>Profile</p>
+        </div>
+        
+        
+    </div>
+
+    <!-- Bootstrap JS and icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    
+    <script>
+        // Initialize the Speech Recognition API
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'te-IN'; // Set the language to Telugu (supports mixed Telugu-English recognition)
+        recognition.continuous = false; // Single sentence recognition
+        recognition.interimResults = false; // Don't show interim results
+    
+        // Function to start the voice assistant
+        function startVoiceAssistant() {
+            recognition.start(); // Start listening to user's speech
+            console.log("Voice assistant listening...");
+        }
+    
+        // Event listener when speech is recognized
+        recognition.onresult = function (event) {
+            const transcript = event.results[0][0].transcript.toLowerCase().trim(); // Get the recognized text
+            console.log("User said: " + transcript);
+    
+            // Detect command
+            const command = detectCommand(transcript);
+            console.log("Detected Command: " + command);
+    
+            // Perform actions based on the detected command
+            if (command === "report an issue") {
+                window.location.href = 'addyours.html'; // Redirect to addyours.html
+            } else if (command === "safety tips") {
+                alert("Stay aware of your surroundings and report suspicious activities.");
+            } else if (command === "events") {
+                alert("You can find upcoming events in the Upcoming Events section.");
+            } else if (command === "help") {
+                alert("Here are some options: Report an Issue, Safety Tips, Events.");
+            } else {
+                alert("Sorry, I didn't catch that. Please try again.");
+            }
+        };
+    
+        // Error handling
+        recognition.onerror = function (event) {
+            alert("Sorry, there was an error with the voice assistant. Please try again.");
+        };
+    
+        // Function to detect commands in both Telugu and English, handling partial matches
+        function detectCommand(text) {
+            const commands = {
+                "report an issue": ["report an issue", "నేను ఒక సమస్యను రిపోర్ట్ చేయాలి", "రిపోర్ట్ ఆన్ ఇష్యూ"],
+                "safety tips": ["safety tips", "సెఫ్టీ టిప్స్"],
+                "events": ["events", "ఈవెంట్స్"],
+                "help": ["help", "హెల్ప్"]
+            };
+    
+            // Iterate over commands to find a match
+            for (const [key, phrases] of Object.entries(commands)) {
+                for (const phrase of phrases) {
+                    if (text.includes(phrase.toLowerCase())) {
+                        return key; // Return the matched command
+                    }
+                }
+            }
+            return null; // No match found
+        }
+    </script>
+    
+    
+    
+
+</body>
+</html>

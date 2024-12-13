@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .report-card {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #7c3aed;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+            gap: 20px;
+        }
+
+        .grid-item {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Start from below */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Transition effect */
+        }
+        .grid-item.visible {
+            opacity: 1; /* Make visible when scrolled into view */
+            transform: translateY(0); /* Move to original position */
+        }
+
+
+    
+    .timeline {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 20px;
+        overflow: hidden;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background-color: #7c3aed;
+        animation: grow 2s ease-out;
+    }
+
+    .timeline-stage {
+        position: relative;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: slideIn 0.5s ease-out forwards;
+    }
+
+    .timeline-stage span {
+        display: block;
+        font-weight: bold;
+        color: #7c3aed;
+    }
+
+    .timeline-stage.active {
+        color: #fff;
+    }
+
+    @keyframes grow {
+        0% {
+            height: 0;
+        }
+        100% {
+            height: 100%;
+        }
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #181818;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #333;
+        }
+
+        .footer-nav .nav-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .footer-nav .nav-item p {
+            font-size: 12px;
+            margin: 5px 0 0;
+            color: #888;
+        }
+
+        .footer-nav .nav-icon {
+            font-size: 20px;
+            color: #888;
+        }
+
+        .footer-nav .active .nav-icon, .footer-nav .active p {
+            color: #7c3aed;
+        }
+
+        .calendar-container {
+            margin-top: 20px;
+        }
+
+        .resolved {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Report Status</h1>
+        <div id="report-container"></div>
+    </div>
+    <div class="container">
+        <h1>Categories</h1>
+        <div class="grid-container" style="overflow: auto;" >
+            <div class="grid-item visible">
+                <img style="width: 100px; height: 100px;" src="https://th.bing.com/th/id/R.7c1afad9e76db3db98e237dac23d7bf8?rik=MhLwDIgg62ALig&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fService-Maintenance-PNG-Free-Image.png&ehk=Oos0QAkxZ9BS5QVs%2fBjGy98HlbGhblqngyn9nn1laIg%3d&risl=&pid=ImgRaw&r=0" alt="XYZ Apartment Community Event">
+                <button class="btn btn-danger mt-3" onclick="showReports('Maintenance')">View</button>
+            </div>
+            <div class="grid-item visible">
+                <img style="width: 100px; height: 100px;" src="https://seeklogo.com/images/R/road-haulage-association-rha-logo-C878F24302-seeklogo.com.png" alt="XYZ Apartment Community Event">
+                <button class="btn btn-danger mt-3" onclick="showReports('Repair')">View</button>
+            </div>
+            <div class="grid-item visible">
+                <img style="width: 100px; height: 100px;" src="https://cdn4.iconfinder.com/data/icons/international-day-for-the-elimination-of-violenc-1/123/17_-_Stop_harassment-512.png" alt="XYZ Apartment Community Event">
+                <button class="btn btn-danger mt-3" onclick="showReports('Harassment')">View</button>
+            </div>
+            <div class="grid-item visible">
+                <img style="width: 100px; height: 100px;" src="https://cdn2.iconfinder.com/data/icons/the-circle-icons/512/accessibility.png" alt="XYZ Apartment Community Event">
+                <button class="btn btn-danger mt-3" onclick="showReports('Accessibility')">View</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-nav">
+        <div class="nav-item active">
+            <a href="home.html"><i class="bi bi-house-door-fill nav-icon"></i></a>
+            <p>Home</p>
+        </div>
+        <div class="nav-item">
+            <a href="status.html"><i class="bi bi-graph-up-arrow nav-icon"></i></a>
+            <p>Report Status</p>
+        </div>
+        <div class="nav-item">
+            <a href="addyours.html"><i class="bi bi-plus-circle-fill nav-icon"></i></a>
+            <p>Add Yours</p>
+        </div>
+        <div class="nav-item">
+            <a href="services.html"><i class="bi bi-people-fill nav-icon"></i></a>
+            <p>Services</p>
+        </div>
+        <div class="nav-item">
+            <a href="profile.html"><i class="bi bi-exclamation-square-fill nav-icon"></i></a>
+            <p>Profile</p>
+        </div>
+    </div>
+
+    <script>
+        const reports = JSON.parse(localStorage.getItem('reports')) || [];
+        const reportContainer = document.getElementById('report-container');
+        const serviceMappings = {
+            'పనిమనిషి': { name: "Peter", phone: "123-456-7890", job: "House Maintenance" },
+            'క్లీన్': { name: "Peter", phone: "123-456-7890", job: "House Maintenance" },
+            'లైట్లు': { name: "Robert Hue", phone: "123-456-7890", job: "Electrician" },
+            'ఫ్యాన్': { name: "Robert Hue", phone: "123-456-7890", job: "Electrician" },
+            'చార్జింగ్': { name: "Robert Hue", phone: "123-456-7890", job: "Electrician" },
+            'కుర్చీ': { name: "Jack Steven", phone: "123-456-7890", job: "Carpentry" },
+            'ఫర్నిచర్': { name: "Jack Steven", phone: "123-456-7890", job: "Carpentry" },
+            'వాష్ రూమ్': { name: "John Dave", phone: "123-456-7890", job: "Plumbing" },
+            'నీరు': { name: "John Dave", phone: "123-456-7890", job: "Plumbing" },
+            'పైప్': { name: "John Dave", phone: "123-456-7890", job: "Plumbing" },
+            'గుంతలు': { name: "William Job", phone: "123-456-7890", job: "Civil Engineering Technicians" },
+            'maid':{ name: "Peter", phone: "123-456-7890", job: "House Maintenance" },
+            'water': { name: "John Dave", phone: "123-456-7890", job: "Plumbing" },
+            'roads':{name:'Robert Hue',phone:"999-890-1212",job:"Civil Engineer"},
+            'electric':{ name: "Robert Hue", phone: "123-456-7890", job: "Electrician" }
+        };
+        const categories = {
+            "Maintenance": ['పనిమనిషి', 'క్లీన్', 'లైట్లు', 'ఫ్యాన్', 'చార్జింగ్', 'కుర్చీ', 'ఫర్నిచర్', 'వాష్ రూమ్', 'నీరు', 'పైప్','water','clean','irregular'],
+            "Harassment": ['హరాస్', 'అత్యాచారం','abuse','harrass','misbehave'],
+            "Accessibility": ['యాక్సెస్', 'ఇన్‌క్లూజన్','lift','steps'],
+            "Repair": ['బ్రేక్', 'ఫీల్', 'రోడ్స్', 'ఇలెక్ట్రిక్','leaking','running','broken','road','potholes','accidents']
+            
+        };
+    
+        function showReports(category) {
+            reportContainer.innerHTML = ''; // Clear existing content
+            const categoryKeywords = categories[category];
+    
+            reports.forEach(report => {
+                const reportCard = document.createElement('div');
+                reportCard.classList.add('report-card');
+                if (report.resolved) reportCard.classList.add('resolved');
+    
+                // Check if the report matches any keywords from the selected category
+                const matchesCategory = categoryKeywords.some(keyword => report.details.includes(keyword));
+    
+                if (matchesCategory) {
+                    reportCard.innerHTML = `
+                        <h4>Report ID: ${report.id}</h4>
+                        <p>Description: ${report.details}</p>
+                        <p>Status: <span class="status">${report.resolved ? 'Resolved' : 'Under Investigation'}</span></p>
+                        <button class="btn btn-outline-light mt-3" onclick="showTimeline(${report.id})">View Details</button>
+                        <div id="timeline-${report.id}" style="display: none;">
+                            <div class="timeline">
+                                <div class="timeline-stage"><span>Stage 1:</span> Complaint Registered</div>
+                                <div class="timeline-stage"><span>Stage 2:</span> Resource Allocation</div>
+                                <ul id="allocated-resources-${report.id}" class="mt-2">
+                                    <li>Loading...</li>
+                                </ul>
+                                <div class="timeline-stage calendar-container">
+                                    <span>Stage 3:</span> Book Date
+                                    <input type="date" id="date-picker-${report.id}" class="form-control mt-2">
+                                    <button class="btn btn-light btn-sm mt-2" onclick="confirmDate(${report.id})">Confirm Date</button>
+                                    <button class="btn btn-light btn-sm mt-2" onclick="startVoiceInput(${report.id})">
+                                        <i class="bi bi-mic"></i> Voice Input
+                                    </button>
+                                </div>
+                                <div class="timeline-stage">
+                                    <span>Stage 4:</span> Resolution Status
+                                    <button class="btn btn-success btn-sm mt-2" onclick="resolveIssue(${report.id})">Mark as Resolved</button>
+                                    <button class="btn btn-warning btn-sm mt-2" onclick="reopenIssue(${report.id})">Reopen Issue</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    reportContainer.appendChild(reportCard);
+    
+                    // Allocate resources based on report details
+                    allocateResources(report.id, report.details);
+                }
+            });
+        }
+    
+        function showTimeline(reportId) {
+            const timeline = document.getElementById(`timeline-${reportId}`);
+            // Toggle the display of the timeline
+            if (timeline.style.display === 'none') {
+                timeline.style.display = 'block';
+            } else {
+                timeline.style.display = 'none';
+            }
+        }
+    
+        // Function to allocate resources based on report details
+        function allocateResources(reportId, details) {
+            const resourcesContainer = document.getElementById(`allocated-resources-${reportId}`);
+            const resources = [];
+    
+            // Check for keywords in serviceMappings
+            Object.entries(serviceMappings).forEach(([keyword, resource]) => {
+                if (details.includes(keyword)) {
+                    resources.push(resource);
+                }
+            });
+    
+            // Update the resources display
+            setTimeout(() => {
+                resourcesContainer.innerHTML = resources.length > 0
+                    ? resources.map(resource => `
+                        <li>
+                            <strong>Name:</strong> ${resource.name}<br>
+                            <strong>Phone:</strong> ${resource.phone}<br>
+                            <strong>Job:</strong> ${resource.job}
+                        </li>
+                    `).join('')
+                    : '<li>No resources allocated.</li>';
+            }, 1000);
+        }
+    
+        function confirmDate(reportId) {
+            const date = document.getElementById(`date-picker-${reportId}`).value;
+            if (date) {
+                alert(`Date confirmed: ${date}`);
+            } else {
+                alert('Please select a date.');
+            }
+        }
+    
+        function startVoiceInput(reportId) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+    
+            recognition.onresult = event => {
+                const spokenDate = event.results[0][0].transcript;
+                alert(`You said: ${spokenDate}`);
+    
+                const parsedDate = parseSpokenDate(spokenDate);
+                if (parsedDate) {
+                    document.getElementById(`date-picker-${reportId}`).value = parsedDate;
+                } else {
+                    alert('Unable to recognize the date. Please try again.');
+                }
+            };
+    
+            recognition.onerror = () => {
+                alert('Voice recognition failed. Please try again.');
+            };
+        }
+    
+        function parseSpokenDate(spokenDate) {
+            const dateFormats = [
+                /(\d{1,2})[a-z]* (\w+) (\d{4})/, // e.g., "10th December 2024"
+                /(\d{1,2})-(\d{1,2})-(\d{4})/, // e.g., "10-12-2024"
+                /(\d{1,2}) (\d{1,2}) (\d{4})/  // e.g., "10 12 2024"
+            ];
+    
+            for (const format of dateFormats) {
+                const match = spokenDate.match(format);
+                if (match) {
+                    const day = match[1].padStart(2, '0');
+                    const month = isNaN(match[2]) 
+                        ? new Date(`${match[2]} 1`).getMonth() + 1 // Convert month name to number
+                        : match[2].padStart(2, '0');
+                    const year = match[3];
+                    if (month) {
+                        return `${year}-${month}-${day}`;
+                    }
+                }
+            }
+            return null;
+        }
+    
+        function resolveIssue(reportId) {
+            const report = reports.find(r => r.id === reportId);
+            report.resolved = true;
+            localStorage.setItem('reports', JSON.stringify(reports));
+            location.reload();
+        }
+    
+        function reopenIssue(reportId) {
+            const report = reports.find(r => r.id === reportId);
+            report.resolved = false;
+            localStorage.setItem('reports', JSON.stringify(reports));
+            location.reload();
+        }
+    </script>
+    
+    
+</body>
+</html>

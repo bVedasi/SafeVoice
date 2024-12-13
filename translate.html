@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .alert-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Voice Assistant</h1>
+    <p>Click the button to start the voice assistant</p>
+
+    <div class="alert-section">
+        <button class="btn" id="voice-assistant-btn">Start Voice Assistant</button>
+    </div>
+
+    <p id="assistant-response"></p>
+
+    <script>
+        const voiceAssistantBtn = document.getElementById('voice-assistant-btn');
+        const assistantResponse = document.getElementById('assistant-response');
+
+        // Function to initiate voice recognition
+        const startVoiceRecognition = () => {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const speechResult = event.results[0][0].transcript;
+                assistantResponse.innerHTML = `You said: ${speechResult}`;
+                processCommand(speechResult);
+            };
+
+            recognition.onerror = (event) => {
+                assistantResponse.innerHTML = `Error occurred: ${event.error}`;
+            };
+        };
+
+        // Function to process voice command and give a response
+        const processCommand = (command) => {
+            if (command.includes('hello')) {
+                speak("Hello! How can I assist you today?");
+            } else if (command.includes('weather')) {
+                speak("Checking the weather now...");
+            } else if (command.includes('translate')) {
+                speak("I can translate your text. Please provide the text you want to translate.");
+            } else {
+                speak("Sorry, I didn't understand that.");
+            }
+        };
+
+        // Function to convert text to speech (Voice Assistant Response)
+        const speak = (message) => {
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        };
+
+        // Add event listener to the button
+        voiceAssistantBtn.addEventListener('click', () => {
+            assistantResponse.innerHTML = "Listening for your command...";
+            startVoiceRecognition();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeVoice Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .profile-section img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+
+        .profile-section h2 {
+            margin: 15px 0;
+        }
+
+        .details-card {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background-color: #7c3aed;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #181818;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #333;
+        }
+
+        .footer-nav .nav-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .footer-nav .nav-item p {
+            font-size: 12px;
+            margin: 5px 0 0;
+            color: #888;
+        }
+
+        .footer-nav .nav-icon {
+            font-size: 20px;
+            color: #888;
+        }
+
+        .footer-nav .active .nav-icon, .footer-nav .active p {
+            color: #7c3aed;
+        }
+
+        .appointments-section {
+            display: none;
+        }
+
+        .appointments-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .appointments-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        <div class="profile-section">
+            <img src="https://cdn-icons-png.flaticon.com/512/9094/9094119.png" alt="User">
+            <h2>User Name</h2>
+            <p>Email: user@example.com</p>
+            <button class="btn">Edit Profile</button>
+        </div>
+
+        <div class="details-card">
+            <h4>Recent Activities</h4>
+            <ul>
+                <li>Raised an alert on Nov 20, 2023</li>
+                <li>Joined the Cyber Safety Workshop</li>
+                <li>Completed First Aid Training</li>
+            </ul>
+        </div>
+
+        <div class="details-card">
+            <h4>Appointments</h4>
+            <button class="btn" onclick="toggleAppointments()">View Appointments</button>
+            <div class="appointments-section" id="appointments-section">
+                <ul class="appointments-list" id="appointments-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <div class="nav-item active">
+            <a href="home.html"><i class="bi bi-house-door-fill nav-icon"></i></a>
+            <p>Home</p>
+        </div>
+        <div class="nav-item">
+            <a href="status.html"><i class="bi bi-graph-up-arrow nav-icon"></i></a>
+            <p>Report Status</p>
+        </div>
+
+        <div class="nav-item">
+            <a href="addyours.html"><i class="bi bi-plus-circle-fill nav-icon"></i></a>
+            <p>Add Yours</p>
+        </div>
+        <div class="nav-item">
+            <a href="services.html"><i class="bi bi-people-fill nav-icon"></i></a>
+            <p>Services</p>
+        </div>
+        <div class="nav-item">
+            <a href="profile.html"><i class="bi bi-exclamation-square-fill nav-icon"></i></a>
+            <p>Profile</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleAppointments() {
+            const appointmentsSection = document.getElementById('appointments-section');
+            if (appointmentsSection.style.display === 'none' || appointmentsSection.style.display === '') {
+                loadAppointments();
+                appointmentsSection.style.display = 'block';
+            } else {
+                appointmentsSection.style.display = 'none';
+            }
+        }
+
+        function loadAppointments() {
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            const appointmentsList = document.getElementById('appointments-list');
+            appointmentsList.innerHTML = '';
+
+            if (appointments.length === 0) {
+                appointmentsList.innerHTML = '<li>No appointments available.</li>';
+                return;
+            }
+
+            appointments.forEach(appointment => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${appointment.service} - ${appointment.date}`;
+                appointmentsList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
