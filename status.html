@@ -171,6 +171,10 @@
                 <img style="width: 100px; height: 100px;" src="https://cdn2.iconfinder.com/data/icons/the-circle-icons/512/accessibility.png" alt="XYZ Apartment Community Event">
                 <button class="btn btn-danger mt-3" onclick="showReports('Accessibility')">View</button>
             </div>
+            <div class="grid-item visible">
+                <img style="width: 100px; height: 100px;" src="https://cdn2.iconfinder.com/data/icons/the-circle-icons/512/accessibility.png" alt="XYZ Apartment Community Event">
+                <button class="btn btn-danger mt-3" onclick="showReports('Other')">View</button>
+            </div>
         </div>
 
     </div>
@@ -219,16 +223,17 @@
             'electric':{ name: "Robert Hue", phone: "123-456-7890", job: "Electrician" }
         };
         const categories = {
-            "Maintenance": ['పనిమనిషి', 'క్లీన్', 'లైట్లు', 'ఫ్యాన్', 'చార్జింగ్', 'కుర్చీ', 'ఫర్నిచర్', 'వాష్ రూమ్', 'నీరు', 'పైప్','water','clean','irregular'],
+            "Maintenance": ['పనిమనిషి', 'క్లీన్', 'లైట్లు', 'ఫ్యాన్', 'చార్జింగ్', 'కుర్చీ','రహదారులు', 'ఫర్నిచర్', 'వాష్ రూమ్', 'నీరు', 'పైప్','water','clean','irregular'],
             "Harassment": ['హరాస్', 'అత్యాచారం','abuse','harrass','misbehave'],
             "Accessibility": ['యాక్సెస్', 'ఇన్‌క్లూజన్','lift','steps'],
-            "Repair": ['బ్రేక్', 'ఫీల్', 'రోడ్స్', 'ఇలెక్ట్రిక్','leaking','running','broken','road','potholes','accidents']
-            
+            "Repair": ['బ్రేక్', 'ఫీల్', 'రోడ్స్','రోడ్డు','రోడ్','గుంటలు','యాక్సిడెంట్','ప్రమాదం', 'ఇలెక్ట్రిక్','leaking','running','broken','road','potholes','accidents'],
+            "Other":[]
         };
     
         function showReports(category) {
             reportContainer.innerHTML = ''; // Clear existing content
             const categoryKeywords = categories[category];
+            const unmatchedReports = [];
     
             reports.forEach(report => {
                 const reportCard = document.createElement('div');
@@ -271,9 +276,53 @@
     
                     // Allocate resources based on report details
                     allocateResources(report.id, report.details);
+                }else if (category === "Other") {
+                unmatchedReports.push(report);
                 }
             });
+            if (category === "Other" && unmatchedReports.length > 0) {
+            unmatchedReports.forEach(report => {
+                const reportCard = document.createElement('div');
+                reportCard.classList.add('report-card');
+                if (report.resolved) reportCard.classList.add('resolved');
+
+                reportCard.innerHTML = `
+                    <h4>Report ID: ${report.id}</h4>
+                    <p>Description: ${report.details}</p>
+                    <p>Status: <span class="status">${report.resolved ? 'Resolved' : 'Under Investigation'}</span></p>
+                    <button class="btn btn-outline-light mt-3" onclick="showTimeline(${report.id})">View Details</button>
+                    <div id="timeline-${report.id}" style="display: none;">
+                        <div class="timeline">
+                            <div class="timeline-stage"><span>Stage 1:</span> Complaint Registered</div>
+                                <div class="timeline-stage"><span>Stage 2:</span> Resource Allocation</div>
+                                <ul id="allocated-resources-${report.id}" class="mt-2">
+                                    <li>Loading...</li>
+                                </ul>
+                                <div class="timeline-stage calendar-container">
+                                    <span>Stage 3:</span> Book Date
+                                    <input type="date" id="date-picker-${report.id}" class="form-control mt-2">
+                                    <button class="btn btn-light btn-sm mt-2" onclick="confirmDate(${report.id})">Confirm Date</button>
+                                    <button class="btn btn-light btn-sm mt-2" onclick="startVoiceInput(${report.id})">
+                                        <i class="bi bi-mic"></i> Voice Input
+                                    </button>
+                                </div>
+                                <div class="timeline-stage">
+                                    <span>Stage 4:</span> Resolution Status
+                                    <button class="btn btn-success btn-sm mt-2" onclick="resolveIssue(${report.id})">Mark as Resolved</button>
+                                    <button class="btn btn-warning btn-sm mt-2" onclick="reopenIssue(${report.id})">Reopen Issue</button>
+                                </div>
+                        </div>
+                    </div>
+                `;
+                reportContainer.appendChild(reportCard);
+
+                // Allocate resources based on report details
+                allocateResources(report.id, report.details);
+            });
         }
+    }
+        
+        
     
         function showTimeline(reportId) {
             const timeline = document.getElementById(`timeline-${reportId}`);
