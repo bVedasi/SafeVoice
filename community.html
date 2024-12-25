@@ -183,12 +183,17 @@
                 <button class="btn" onclick="joinCommunity(this, 'XYZ Apartment Community')">Submit</button>
             </div>
         </div>
-        
-
-
     </div>
-
-
+    <div id="community-chat-box" style="display: none;">
+        <div class="chat-box">
+            <h5 id="chat-community-name">Community Chat</h5>
+            <div id="chat-messages" class="chat-messages"></div>
+            <div class="chat-input">
+                <input id="chat-message" type="text" placeholder="Type a message">
+                <button class="btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
     <h3 class="section-title mt-5">Upcoming Events</h3>
 
     <!-- Event Card 1 -->
@@ -221,7 +226,13 @@
             <p>Acquire essential first aid skills and knowledge to respond to emergencies effectively.</p>
         </div>
     </div>
-
+    <div id="chatbot-container" style="margin-top: 20px;">
+        <script
+            src="https://app.livechatai.com/embed.js"
+            data-id="cm53zpeqa0007mj0bpfhmn1cu"
+            async defer>
+        </script>
+    </div>
 
     <script>
         // Toggle Create Community Form
@@ -381,6 +392,7 @@ function generateCommunityCode(name) {
             // Attach the scroll event
             document.addEventListener('scroll', handleScroll);
         });
+        
     </script>
 </body>
 </html>
