@@ -88,6 +88,24 @@
         .appointments-list li {
             margin-bottom: 10px;
         }
+        .brownie-points {
+            background: linear-gradient(90deg, #9900ff, #cc0099);
+            padding: 15px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .brownie-points h4 {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .brownie-points p {
+            margin: 10px 0 0;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -115,6 +133,10 @@
             <div class="appointments-section" id="appointments-section">
                 <ul class="appointments-list" id="appointments-list"></ul>
             </div>
+        </div>
+        <div class="brownie-points">
+            <h4>Brownie Points</h4>
+            <p><strong id="brownie-points-display">0 Points</strong></p>
         </div>
     </div>
 
@@ -169,6 +191,16 @@
                 appointmentsList.appendChild(listItem);
             });
         }
+        
+    // Function to calculate and update Brownie Points
+    function updateBrowniePoints() {
+        const browniePoints = parseInt(localStorage.getItem('browniePoints') || '0', 10);
+        const pointsDisplay = document.getElementById('brownie-points-display');
+        pointsDisplay.textContent = `Your Brownie Points: ${browniePoints}`;
+    }
+
+    // Call on page load to update the display
+    document.addEventListener('DOMContentLoaded', updateBrowniePoints);
     </script>
 </body>
 </html>

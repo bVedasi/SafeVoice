@@ -107,6 +107,29 @@
             
             border-radius: 10px;
         }
+        .feedback-section {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .feedback-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .feedback-section input, .feedback-section textarea {
+            margin-bottom: 10px;
+        }
+
+        .feedback-section img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
 
         .chat-message {
             color: #fff;
@@ -226,6 +249,19 @@
             <p>Acquire essential first aid skills and knowledge to respond to emergencies effectively.</p>
         </div>
     </div>
+
+    <div class="feedback-section">
+        <h3>Share Your Feedback or Contributions</h3>
+        <form id="feedback-form">
+            <input type="text" id="feedback-title" class="form-control" placeholder="Title of Your Contribution or Feedback" required>
+            <textarea id="feedback-description" class="form-control" rows="4" placeholder="Describe your experience or contribution..." required></textarea>
+            <label for="feedback-image" class="form-label mt-2">Upload a Picture (optional):</label>
+            <input type="file" id="feedback-image" class="form-control" accept="image/*">
+            <button type="button" class="btn mt-3" onclick="submitFeedback()">Submit</button>
+        </form>
+        <div id="feedback-message" class="mt-3"></div>
+    </div>
+
     <div id="chatbot-container" style="margin-top: 20px;">
         <script
             src="https://app.livechatai.com/embed.js"
@@ -233,6 +269,7 @@
             async defer>
         </script>
     </div>
+
 
     <script>
         // Toggle Create Community Form
@@ -250,7 +287,7 @@
 
         // Create Community
         // Create Community
-function createCommunity() {
+    function createCommunity() {
     const name = document.getElementById('community-name').value;
     const type = document.getElementById('community-type').value;
     const age = document.getElementById('age-restriction').value;
@@ -392,7 +429,34 @@ function generateCommunityCode(name) {
             // Attach the scroll event
             document.addEventListener('scroll', handleScroll);
         });
-        
+        function submitFeedback() {
+        const title = document.getElementById('feedback-title').value;
+        const description = document.getElementById('feedback-description').value;
+        const messageDiv = document.getElementById('feedback-message');
+
+        if (!title || !description) {
+            messageDiv.textContent = 'Please complete all required fields.';
+            messageDiv.style.color = 'red';
+            return;
+        }
+
+        // Increment brownie points
+        let currentPoints = parseInt(localStorage.getItem('browniePoints') || '0', 10);
+        currentPoints += 10;
+        localStorage.setItem('browniePoints', currentPoints);
+
+        // Clear form
+        document.getElementById('feedback-form').reset();
+
+        // Show success message
+        messageDiv.textContent = 'Thank you for your feedback! You earned 10 brownie points.';
+        messageDiv.style.color = 'green';
+    }
+
+    // Function to load brownie points
+    function loadBrowniePoints() {
+        return parseInt(localStorage.getItem('browniePoints') || '0', 10);
+    }
     </script>
 </body>
 </html>
