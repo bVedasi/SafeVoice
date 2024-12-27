@@ -348,6 +348,8 @@
                 alert("You can find upcoming events in the Upcoming Events section.");
             } else if (command === "help") {
                 alert("Here are some options: Report an Issue, Safety Tips, Events.");
+            } else if(command === "status"){
+                window.location.href = 'status.html';
             } else {
                 alert("Sorry, I didn't catch that. Please try again.");
             }
@@ -364,7 +366,8 @@
                 "report an issue": ["report an issue", "నేను ఒక సమస్యను రిపోర్ట్ చేయాలి", "రిపోర్ట్ ఇష్యూ","ఐ హావ్ ఆన్ ఇష్యూ","రిపోర్ట్ చేయాలి"],
                 "safety tips": ["safety tips", "సెఫ్టీ టిప్స్"],
                 "events": ["events", "ఈవెంట్స్"],
-                "help": ["help", "హెల్ప్"]
+                "help": ["help", "హెల్ప్"],
+                "status":["see report status","రిపోర్ట్ స్టేటస్ చూడాలి","రిపోర్ట్ స్టేటస్ చూడాలి."]
             };
     
             // Iterate over commands to find a match
