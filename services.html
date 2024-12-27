@@ -154,7 +154,7 @@
                 appointments.push({ service, date });
                 localStorage.setItem('appointments', JSON.stringify(appointments));
 
-                // Show notification
+                
                 const notification = document.getElementById('notification');
                 notification.textContent = `Appointment for ${service} on ${date} confirmed!`;
                 notification.style.display = 'block';

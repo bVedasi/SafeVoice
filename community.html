@@ -153,7 +153,7 @@
     </div>
 
     <div class="grid-container" style="display: flex; overflow: auto;">
-        <!-- Example Communities -->
+        
         <div class="grid-item" data-code="STUDENT2023">
             <h4>Student Community</h4>
             <p>Type: Public</p>
@@ -219,7 +219,7 @@
     </div>
     <h3 class="section-title mt-5">Upcoming Events</h3>
 
-    <!-- Event Card 1 -->
+
     <div class="event-card">
         <a href="event1.html"><img src="https://news.globalindianschool.org/content/thumbnail/fire-drill-session4x.jpg" alt="Event Image"></a>
         <div class="event-details">
@@ -230,7 +230,7 @@
     </div>
 
     
-    <!-- Event Card 2 -->
+
     <div class="event-card">
         <a href="event2.html"><img src="https://th.bing.com/th/id/OIP.QwAa3ESXIkjZuCT4n0GK0QHaHa?rs=1&pid=ImgDetMain" alt="Event Image"></a>
         <div class="event-details">
@@ -240,7 +240,7 @@
         </div>
     </div>
 
-    <!-- Event Card 3 -->
+
     <div class="event-card">
         <a href="evemt3.html"><img src="https://th.bing.com/th/id/OIP.ogVF0-PFxAyE59UjYdO6gQHaEW?rs=1&pid=ImgDetMain" alt="Event Image"></a>
         <div class="event-details">
@@ -272,43 +272,42 @@
 
 
     <script>
-        // Toggle Create Community Form
+
         function toggleCreateCommunity() {
             const form = document.getElementById('create-community-form');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Toggle Join Form
+
         function toggleJoinForm(button, community, code) {
             const joinForm = button.nextElementSibling;
             joinForm.style.display = joinForm.style.display === 'none' ? 'block' : 'none';
             joinForm.setAttribute('data-community-code', code);
         }
 
-        // Create Community
-        // Create Community
+
     function createCommunity() {
     const name = document.getElementById('community-name').value;
     const type = document.getElementById('community-type').value;
     const age = document.getElementById('age-restriction').value;
     const communityCode = generateCommunityCode(name);
 
-    // Create community object
+
     const community = {
         name,
         type,
         code: communityCode
     };
 
-    // Store the community in localStorage
+
     let communities = JSON.parse(localStorage.getItem('communities')) || [];
     communities.push(community);
     localStorage.setItem('communities', JSON.stringify(communities));
 
-    // Append the new community to the grid container
+
     addCommunityToGrid(community);
 
-    // Clear input fields
+
     document.getElementById('community-name').value = '';
     document.getElementById('community-type').value = 'Public'; 
     document.getElementById('age-restriction').value = '';
@@ -316,7 +315,7 @@
     alert(`Community "${name}" created successfully!`);
 }
 
-// Function to add community to the grid
+
 function addCommunityToGrid(community) {
     const newCommunity = document.createElement('div');
     newCommunity.className = 'grid-item visible'; 
@@ -331,24 +330,22 @@ function addCommunityToGrid(community) {
         </div>
     `;
 
-    // Append the new community to the grid container
+
     document.querySelector('.grid-container').appendChild(newCommunity);
 }
 
-// On page load, populate the grid with communities from localStorage
+
 document.addEventListener('DOMContentLoaded', () => {
     const communities = JSON.parse(localStorage.getItem('communities')) || [];
-    communities.forEach(addCommunityToGrid); // Add each community to the grid
+    communities.forEach(addCommunityToGrid); 
 });
 
 
-// Function to generate a simple community code (you can adjust this logic as needed)
-function generateCommunityCode(name) {
-    return name.split(' ').join('').toUpperCase() + Date.now(); // Example code generation logic
-}
 
+    function generateCommunityCode(name) {
+        return name.split(' ').join('').toUpperCase() + Date.now(); 
+    }
 
-        // Join Community
         function joinCommunity(button, community) {
             const joinForm = button.closest('.join-form');
             const codeInput = joinForm.querySelector('input[type="text"]');
@@ -359,11 +356,11 @@ function generateCommunityCode(name) {
                 alert(`Joined "${community}" successfully!`);
                 const parent = button.closest('.grid-item');
 
-                // Remove join button and replace it with leave button
+
                 const joinButton = parent.querySelector('button');
                 joinButton.outerHTML = `<button class="btn" onclick="leaveCommunity(this, '${community}')">Leave</button>`;
 
-                // Show chat box
+                
                 const placeholder = parent.nextElementSibling.querySelector('.placeholder-image');
                 placeholder.outerHTML = `
                     <div class="chat-box">
@@ -380,15 +377,15 @@ function generateCommunityCode(name) {
             }
         }
 
-        // Leave Community
+
         function leaveCommunity(button, community) {
             const parent = button.closest('.grid-item');
             const joinButton = button.outerHTML = `<button class="btn" onclick="toggleJoinForm(this, '${community}', '${parent.getAttribute('data-code')}')">Join</button>`;
             const chatBox = parent.nextElementSibling.querySelector('.chat-box');
-            chatBox.outerHTML = `<div class="placeholder-image"></div>`; // Remove chat box
+            chatBox.outerHTML = `<div class="placeholder-image"></div>`; 
         }
 
-        // Send Message
+
         function sendMessage() {
             const messageInput = document.getElementById('chat-message');
             const messageText = messageInput.value;
@@ -400,12 +397,12 @@ function generateCommunityCode(name) {
                 newMessage.innerText = messageText;
                 messagesDiv.appendChild(newMessage);
                 
-                // Clear the input field
+               
                 messageInput.value = '';
             }
         }
 
-        // Scroll Effects
+
         document.addEventListener('DOMContentLoaded', () => {
             const items = document.querySelectorAll('.grid-item');
 
@@ -414,7 +411,7 @@ function generateCommunityCode(name) {
 
                 items.forEach(item => {
                     const rect = item.getBoundingClientRect();
-                    // Check if the item is in the viewport
+                    
                     if (rect.top < windowHeight && rect.bottom > 0) {
                         item.classList.add('visible');
                     } else {
@@ -423,10 +420,10 @@ function generateCommunityCode(name) {
                 });
             };
 
-            // Initialize visible elements on page load
+
             handleScroll();
 
-            // Attach the scroll event
+            
             document.addEventListener('scroll', handleScroll);
         });
         function submitFeedback() {
@@ -445,15 +442,15 @@ function generateCommunityCode(name) {
         currentPoints += 10;
         localStorage.setItem('browniePoints', currentPoints);
 
-        // Clear form
+      
         document.getElementById('feedback-form').reset();
 
-        // Show success message
+     
         messageDiv.textContent = 'Thank you for your feedback! You earned 10 brownie points.';
         messageDiv.style.color = 'green';
     }
 
-    // Function to load brownie points
+    
     function loadBrowniePoints() {
         return parseInt(localStorage.getItem('browniePoints') || '0', 10);
     }

@@ -177,7 +177,7 @@
 
         @media (max-width: 768px) {
         .event-details p {
-            display: none; /* Hide title and description */
+            display: none; 
         }
 
         .event-image {
@@ -185,7 +185,7 @@
         }
 
         .event-button {
-            width: 100%; /* Make button full width for better usability */
+            width: 100%; 
         }
         }
     </style>
@@ -193,7 +193,7 @@
 <body>
 
     <div class="container">
-        <!-- Header -->
+
         <header>
             <h1>SafeVoice Home</h1>
             <div class="user-profile">
@@ -201,7 +201,7 @@
             </div>
         </header>
 
-        <!-- Main Banner -->
+        
         <div class="main-banner">
             <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9559d3c3-a527-45ac-823a-ca03f4c301fc/dchyjkn-bb8072e6-319c-4f00-9e60-174432c4053b.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk1NTlkM2MzLWE1MjctNDVhYy04MjNhLWNhMDNmNGMzMDFmY1wvZGNoeWprbi1iYjgwNzJlNi0zMTljLTRmMDAtOWU2MC0xNzQ0MzJjNDA1M2IuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.QjZgd-SLp2fyfSn7C6ceMp_zxgYGKaUOKHKdCxNSt-o" alt="Banner Image">
             <div class="banner-text">
@@ -211,18 +211,16 @@
             </div>
         </div>
 
-        <!-- Community Highlights Section -->
         <h3 class="section-title">Community Highlights</h3>
 
-        <!-- Safety Tips Section -->
+ 
         <h3 class="section-title">Safety Tips</h3>
         <p>Stay aware of your surroundings and report suspicious activities.</p>
 
-        <!-- Upcoming Events Section -->
+        
         <div class="container">
             <div class="section-title">Report Categories</div>
         
-            <!-- Event Cards -->
             <div class="event-card">
                 <img src="https://th.bing.com/th/id/R.7c1afad9e76db3db98e237dac23d7bf8?rik=MhLwDIgg62ALig&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fService-Maintenance-PNG-Free-Image.png&ehk=Oos0QAkxZ9BS5QVs%2fBjGy98HlbGhblqngyn9nn1laIg%3d&risl=&pid=ImgRaw&r=0" alt="Student Community Event">
                 <div class="event-details">
@@ -268,7 +266,6 @@
         </div>
         
 
-        <!-- Community Section -->
         <div class="community-section">
             <h3>Community and Badges</h3>
             <p>Join and participate in communities to earn badges and connect with others.</p>
@@ -278,15 +275,13 @@
              
         </div>
 
-        <!-- Alert Section -->
-        <!-- Alert Section -->
         <div class="alert-section">
             <p>Need help?</p>
             <button class="btn" onclick="startVoiceAssistant()">Voice Assistant</button>
         </div>
 
     </div>
-    <!-- Footer Navigation -->
+
     <div class="footer-nav">
         <div class="nav-item active">
             <a href="home.html"><i class="bi bi-house-door-fill nav-icon"></i></a>
@@ -313,35 +308,35 @@
         
     </div>
 
-    <!-- Bootstrap JS and icons -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
     
     <script>
         // Initialize the Speech Recognition API
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'te-IN'; // Set the language to Telugu (supports mixed Telugu-English recognition)
-        recognition.continuous = false; // Single sentence recognition
-        recognition.interimResults = false; // Don't show interim results
+        recognition.lang = 'te-IN'; 
+        recognition.continuous = false; 
+        recognition.interimResults = false;
     
-        // Function to start the voice assistant
+
         function startVoiceAssistant() {
-            recognition.start(); // Start listening to user's speech
+            recognition.start(); 
             console.log("Voice assistant listening...");
         }
     
-        // Event listener when speech is recognized
+
         recognition.onresult = function (event) {
-            const transcript = event.results[0][0].transcript.toLowerCase().trim(); // Get the recognized text
+            const transcript = event.results[0][0].transcript.toLowerCase().trim(); 
             console.log("User said: " + transcript);
     
-            // Detect command
+
             const command = detectCommand(transcript);
             console.log("Detected Command: " + command);
     
-            // Perform actions based on the detected command
+
             if (command === "report an issue") {
-                window.location.href = 'addyours.html'; // Redirect to addyours.html
+                window.location.href = 'addyours.html'; 
             } else if (command === "safety tips") {
                 alert("Stay aware of your surroundings and report suspicious activities.");
             } else if (command === "events") {
@@ -355,12 +350,12 @@
             }
         };
     
-        // Error handling
+
         recognition.onerror = function (event) {
             alert("Sorry, there was an error with the voice assistant. Please try again.");
         };
     
-        // Function to detect commands in both Telugu and English, handling partial matches
+
         function detectCommand(text) {
             const commands = {
                 "report an issue": ["report an issue", "నేను ఒక సమస్యను రిపోర్ట్ చేయాలి", "రిపోర్ట్ ఇష్యూ","ఐ హావ్ ఆన్ ఇష్యూ","రిపోర్ట్ చేయాలి"],
@@ -370,15 +365,14 @@
                 "status":["see report status","రిపోర్ట్ స్టేటస్ చూడాలి","రిపోర్ట్ స్టేటస్ చూడాలి."]
             };
     
-            // Iterate over commands to find a match
             for (const [key, phrases] of Object.entries(commands)) {
                 for (const phrase of phrases) {
                     if (text.includes(phrase.toLowerCase())) {
-                        return key; // Return the matched command
+                        return key; 
                     }
                 }
             }
-            return null; // No match found
+            return null; 
         }
     </script>
     

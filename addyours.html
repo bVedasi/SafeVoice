@@ -24,7 +24,7 @@
             color: #fff;
         }
 
-        /* CSS for blinking cursor effect */
+
         .active-field {
             border: 2px solid #7c3aed;
             animation: blink 1s step-end infinite;
@@ -61,7 +61,7 @@
             color: #7c3aed;
         }
 
-        /* Position for language toggle */
+
         .language-toggle {
             position: absolute;
             top: 20px;
@@ -86,7 +86,6 @@
     <div class="container">
         <h1 id="title">Add Your Report</h1>
         <form id="report-form">
-            <!-- Existing fields -->
             <div class="mb-3">
                 <label for="report-title" class="form-label" id="label-title">Title</label>
                 <input type="text" class="form-control" id="report-title" placeholder="Enter the title">
@@ -100,7 +99,7 @@
                 <input type="file" class="form-control" id="report-evidence">
             </div>
             
-            <!-- Service Selection Dropdown -->
+
             <div class="mb-3">
                 <label for="service-selection" class="form-label" id="label-service">Select Service</label>
                 <select class="form-control" id="service-selection">
@@ -140,17 +139,17 @@
     </div>
 
     <script>
-        let currentLanguage = 'en';  // Default language is English
+        let currentLanguage = 'en';  
 
         const languageToggle = document.getElementById('language-toggle');
         
         // Language change functionality
         languageToggle.onclick = function() {
             if (currentLanguage === 'en') {
-                currentLanguage = 'te'; // Switch to Telugu
+                currentLanguage = 'te'; 
                 languageToggle.textContent = 'English';
             } else {
-                currentLanguage = 'en'; // Switch to English
+                currentLanguage = 'en'; 
                 languageToggle.textContent = 'Telugu';
             }
             changeLanguage();
@@ -171,7 +170,7 @@
                 document.getElementById('footer-services').textContent = 'సేవలు';
                 document.getElementById('footer-profile').textContent = 'ప్రొఫైల్';
                 
-                // Set Telugu for speech recognition
+               
                 recognition.lang = 'te-IN';
             } else {
                 document.getElementById('title').textContent = 'Add Your Report';
@@ -186,28 +185,27 @@
                 document.getElementById('footer-services').textContent = 'Services';
                 document.getElementById('footer-profile').textContent = 'Profile';
 
-                // Set English for speech recognition
+               
                 recognition.start();
             }
         }
 
-        // Initialize Speech Recognition API for Telugu/English
+       
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.continuous = true;  // Keep listening continuously
-        recognition.lang = currentLanguage === 'te' ? 'te-IN' : 'en-US';  // Set language based on toggle
+        recognition.continuous = true;  
+        recognition.lang = currentLanguage === 'te' ? 'te-IN' : 'en-US';  
 
         window.onload = function() {
             recognition.start();
         };
 
-        let currentField = null;  // Track the active field (title or details)
-
+        let currentField = null;  
         recognition.onresult = function(event) {
             const transcript = event.results[event.resultIndex][0].transcript.trim();
 
             console.log("Recognized speech: ", transcript);
 
-            // Use a dictionary for common Telugu/English phrases to actions
+           
             const actionDictionary = {
                 "టైటిల్ నమోదు చేయి": "enter title",
                 "టైటిల్ ఎంటర్ చేయి": "enter title",
@@ -225,25 +223,25 @@
                 "submit report": "submit report"
             };
 
-            // Check if the recognized speech matches an action in the dictionary
+
             if (actionDictionary[transcript]) {
                 if (actionDictionary[transcript] === "enter title") {
                     document.getElementById('report-title').focus();
-                    document.getElementById('report-title').classList.add('active-field'); // Blink effect for title field
-                    document.getElementById('report-details').classList.remove('active-field'); // Remove blink from details field
-                    currentField = 'title';  // Set active field to title
+                    document.getElementById('report-title').classList.add('active-field'); 
+                    document.getElementById('report-details').classList.remove('active-field'); 
+                    currentField = 'title';  
                 } 
                 else if (actionDictionary[transcript] === "enter details") {
                     document.getElementById('report-details').focus();
-                    document.getElementById('report-details').classList.add('active-field'); // Blink effect for details field
-                    document.getElementById('report-title').classList.remove('active-field'); // Remove blink from title field
-                    currentField = 'details';  // Set active field to details
+                    document.getElementById('report-details').classList.add('active-field'); 
+                    document.getElementById('report-title').classList.remove('active-field'); 
+                    currentField = 'details'; 
                 }
                 else if (actionDictionary[transcript] === "submit report") {
                     document.getElementById("report-form").dispatchEvent(new Event("submit"));
                 }
             } else {
-                // If the user is speaking into the active field, enter the speech text directly into the field
+
                 if (currentField === 'title') {
                     document.getElementById('report-title').value = transcript;
                 } else if (currentField === 'details') {
@@ -258,30 +256,30 @@
 
         recognition.onend = function() {
             console.log("Voice assistant has stopped listening.");
-            recognition.start();  // Restart listening after it stops
+            recognition.start();  
         };
 
-        // Handle form submission
-        document.getElementById('report-form').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent page refresh
 
-            // Get the values from the form
+        document.getElementById('report-form').addEventListener('submit', function(event) {
+            event.preventDefault();  
+
+
             const title = document.getElementById('report-title').value;
             const details = document.getElementById('report-details').value;
 
-            // Store the report in localStorage
+
             const report = {
                 title: title,
                 details: details,
-                id: Date.now() // Unique report ID based on timestamp
+                id: Date.now() 
             };
 
             let reports = JSON.parse(localStorage.getItem('reports')) || [];
             reports.push(report);
             localStorage.setItem('reports', JSON.stringify(reports));
 
-            // Optionally, redirect to the status page (you can keep this page open if preferred)
-            window.location.href = "status.html";  // Redirect to report status page
+
+            window.location.href = "status.html";  
         });
     </script>
 </body>

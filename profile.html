@@ -192,14 +192,14 @@
             });
         }
         
-    // Function to calculate and update Brownie Points
+
     function updateBrowniePoints() {
         const browniePoints = parseInt(localStorage.getItem('browniePoints') || '0', 10);
         const pointsDisplay = document.getElementById('brownie-points-display');
         pointsDisplay.textContent = `Your Brownie Points: ${browniePoints}`;
     }
 
-    // Call on page load to update the display
+    
     document.addEventListener('DOMContentLoaded', updateBrowniePoints);
     </script>
 </body>

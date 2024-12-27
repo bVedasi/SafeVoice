@@ -44,8 +44,8 @@
             transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Transition effect */
         }
         .grid-item.visible {
-            opacity: 1; /* Make visible when scrolled into view */
-            transform: translateY(0); /* Move to original position */
+            opacity: 1; 
+            transform: translateY(0); 
         }
 
 
@@ -231,7 +231,7 @@
         };
     
         function showReports(category) {
-            reportContainer.innerHTML = ''; // Clear existing content
+            reportContainer.innerHTML = ''; 
             const categoryKeywords = categories[category];
             const unmatchedReports = [];
     
@@ -240,7 +240,7 @@
                 reportCard.classList.add('report-card');
                 if (report.resolved) reportCard.classList.add('resolved');
     
-                // Check if the report matches any keywords from the selected category
+
                 const matchesCategory = categoryKeywords.some(keyword => report.details.includes(keyword));
     
                 if (matchesCategory) {
@@ -274,7 +274,7 @@
                     `;
                     reportContainer.appendChild(reportCard);
     
-                    // Allocate resources based on report details
+
                     allocateResources(report.id, report.details);
                 }else if (category === "Other") {
                 unmatchedReports.push(report);
@@ -316,7 +316,7 @@
                 `;
                 reportContainer.appendChild(reportCard);
 
-                // Allocate resources based on report details
+
                 allocateResources(report.id, report.details);
             });
         }
@@ -326,7 +326,7 @@
     
         function showTimeline(reportId) {
             const timeline = document.getElementById(`timeline-${reportId}`);
-            // Toggle the display of the timeline
+            
             if (timeline.style.display === 'none') {
                 timeline.style.display = 'block';
             } else {
@@ -334,19 +334,19 @@
             }
         }
     
-        // Function to allocate resources based on report details
+
         function allocateResources(reportId, details) {
             const resourcesContainer = document.getElementById(`allocated-resources-${reportId}`);
             const resources = [];
     
-            // Check for keywords in serviceMappings
+
             Object.entries(serviceMappings).forEach(([keyword, resource]) => {
                 if (details.includes(keyword)) {
                     resources.push(resource);
                 }
             });
     
-            // Update the resources display
+
             setTimeout(() => {
                 resourcesContainer.innerHTML = resources.length > 0
                     ? resources.map(resource => `
@@ -393,9 +393,9 @@
     
         function parseSpokenDate(spokenDate) {
             const dateFormats = [
-                /(\d{1,2})[a-z]* (\w+) (\d{4})/, // e.g., "10th December 2024"
-                /(\d{1,2})-(\d{1,2})-(\d{4})/, // e.g., "10-12-2024"
-                /(\d{1,2}) (\d{1,2}) (\d{4})/  // e.g., "10 12 2024"
+                /(\d{1,2})[a-z]* (\w+) (\d{4})/, 
+                /(\d{1,2})-(\d{1,2})-(\d{4})/, 
+                /(\d{1,2}) (\d{1,2}) (\d{4})/  
             ];
     
             for (const format of dateFormats) {
@@ -403,7 +403,7 @@
                 if (match) {
                     const day = match[1].padStart(2, '0');
                     const month = isNaN(match[2]) 
-                        ? new Date(`${match[2]} 1`).getMonth() + 1 // Convert month name to number
+                        ? new Date(`${match[2]} 1`).getMonth() + 1 
                         : match[2].padStart(2, '0');
                     const year = match[3];
                     if (month) {
